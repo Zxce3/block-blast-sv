@@ -1,8 +1,8 @@
-import { Board } from '$lib/game/board.svelte'
-import { Score } from '$lib/game/score.svelte'
-import { StatsTracker } from '$lib/game/stats.svelte'
-import { getWeightedRandomPieces, type Piece } from '$lib/game/pieces'
-import type { PlaceResult } from '$lib/game/board.svelte'
+import { Board } from '#lib/game/board.svelte.ts'
+import { Score } from '#lib/game/score.svelte.ts'
+import { StatsTracker } from '#lib/game/stats.svelte.ts'
+import { getWeightedRandomPieces, type Piece } from '#lib/game/pieces.ts'
+import type { PlaceResult } from '#lib/game/board.svelte.ts'
 
 export interface Notification {
   id:    number

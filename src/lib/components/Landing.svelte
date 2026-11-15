@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { game } from '$lib/stores/game.svelte'
+  import { game } from '#lib/stores/game.svelte.ts'
 
   // Hand-crafted decorative board pattern
   const DECO: string[] = [

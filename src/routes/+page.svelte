@@ -1,11 +1,11 @@
 <script lang="ts">
-  import Board from '$lib/components/Board.svelte'
-  import PieceTray from '$lib/components/PieceTray.svelte'
-  import ScoreDisplay from '$lib/components/ScoreDisplay.svelte'
-  import GameOver from '$lib/components/GameOver.svelte'
-  import Landing from '$lib/components/Landing.svelte'
-  import Notifications from '$lib/components/Notifications.svelte'
-  import { game } from '$lib/stores/game.svelte'
+  import Board from '#lib/components/Board.svelte'
+  import PieceTray from '#lib/components/PieceTray.svelte'
+  import ScoreDisplay from '#lib/components/ScoreDisplay.svelte'
+  import GameOver from '#lib/components/GameOver.svelte'
+  import Landing from '#lib/components/Landing.svelte'
+  import Notifications from '#lib/components/Notifications.svelte'
+  import { game } from '#lib/stores/game.svelte.ts'
 </script>
 
 <svelte:head>

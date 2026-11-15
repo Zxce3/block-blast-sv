@@ -1,6 +1,6 @@
 <script lang="ts">
   import DraggablePiece from './DraggablePiece.svelte'
-  import { game } from '$lib/stores/game.svelte'
+  import { game } from '#lib/stores/game.svelte.ts'
 
   let popSlots = $state([false, false, false])
   let prevTrayWasEmpty = $state(false)

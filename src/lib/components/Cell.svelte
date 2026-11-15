@@ -24,6 +24,7 @@
   }
   .cell.filled {
     border-color: transparent;
+    animation: cell-place 80ms ease-out;
   }
   .cell.preview-valid {
     background-color: rgba(34, 197, 94, 0.35);
@@ -32,5 +33,9 @@
   .cell.preview-invalid {
     background-color: rgba(244, 63, 94, 0.35);
     border-color: rgba(244, 63, 94, 0.6);
+  }
+  @keyframes cell-place {
+    from { transform: scale(0.6); opacity: 0; }
+    to   { transform: scale(1);   opacity: 1; }
   }
 </style>

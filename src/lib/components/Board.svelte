@@ -1,6 +1,6 @@
 <script lang="ts">
   import Cell from './Cell.svelte'
-  import { game } from '$lib/stores/game.svelte'
+  import { game } from '#lib/stores/game.svelte.ts'
 
   let previewCells  = $state<Map<number, 'valid' | 'invalid'>>(new Map())
   let clearingCells = $state<Set<number>>(new Set())
@@ -110,6 +110,17 @@
     doPlace(getCellIndex(document.elementFromPoint(e.clientX, e.clientY)))
     pointerCellIdx = -1
   }
+
+  // Touch pointers are captured by the dragged piece, so track them on window.
+  // Registered at mount, so this runs before the piece's own pointerup cleanup.
+  $effect(() => {
+    window.addEventListener('pointermove', onpointermove)
+    window.addEventListener('pointerup', onpointerup)
+    return () => {
+      window.removeEventListener('pointermove', onpointermove)
+      window.removeEventListener('pointerup', onpointerup)
+    }
+  })
 </script>
 
 <div class="relative w-full">
@@ -121,8 +132,6 @@
     {ondragover}
     {ondrop}
     {ondragleave}
-    {onpointermove}
-    {onpointerup}
   >
     {#each game.board.cells as _cell, i (i)}
       <div data-idx={i} class="contents">

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { game } from '$lib/stores/game.svelte'
-  import type { Piece } from '$lib/game/pieces'
+  import { game } from '#lib/stores/game.svelte.ts'
+  import type { Piece } from '#lib/game/pieces.ts'
 
   let { piece, slotIndex }: { piece: Piece; slotIndex: number } = $props()
 
@@ -42,7 +42,10 @@
   let clone: HTMLElement | null = null
 
   function onpointerdown(e: PointerEvent): void {
+    // Mouse uses the HTML5 drag API; pointer events handle touch and pen.
+    if (e.pointerType === 'mouse') return
     e.preventDefault()
+    ;(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId)
     const { row, col } = grabOffset(e, e.currentTarget as HTMLElement)
     game.startDrag(slotIndex, row, col)
 
@@ -56,6 +59,7 @@
 
     window.addEventListener('pointermove', onwindowpointermove)
     window.addEventListener('pointerup', onwindowpointerup, { once: true })
+    window.addEventListener('pointercancel', onwindowpointerup, { once: true })
   }
 
   function cloneTransform(cx: number, cy: number, oRow: number, oCol: number): string {
@@ -72,6 +76,8 @@
 
   function onwindowpointerup(): void {
     window.removeEventListener('pointermove', onwindowpointermove)
+    window.removeEventListener('pointerup', onwindowpointerup)
+    window.removeEventListener('pointercancel', onwindowpointerup)
     if (clone) { clone.remove(); clone = null }
     if (game.dragging !== null) {
       game.cancelDrag()

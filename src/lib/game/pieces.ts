@@ -22,10 +22,9 @@ export const PIECES: Piece[] = [
   { id: 'Z4',    shape: [[1, 1, 0], [0, 1, 1]],               colorVar: 'var(--piece-indigo)' },
   { id: '3x3',   shape: [[1,1,1],[1,1,1],[1,1,1]],            colorVar: 'var(--piece-pink)'   },
   { id: 'P5',    shape: [[1, 1], [1, 1], [1, 0]],             colorVar: 'var(--piece-yellow)' },
-  { id: '1x1b',  shape: [[1]],                                colorVar: 'var(--piece-purple)' },
 ]
 
-const SMALL_IDS = new Set(['1x1', '1x2', '2x1', '1x3', '3x1', 'J3', 'L3', '2x2', '1x1b'])
+const SMALL_IDS = new Set(['1x1', '1x2', '2x1', '1x3', '3x1', 'J3', 'L3', '2x2'])
 
 export function getWeightedRandomPieces(n: number, level: number = 1): Piece[] {
   const pool: Piece[] = []
