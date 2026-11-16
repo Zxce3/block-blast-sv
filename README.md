@@ -13,6 +13,7 @@ Drag tetromino-style pieces onto an 8×8 grid. Fill rows or columns to clear the
 | Animations | CSS keyframes — no external animation libs |
 | Persistence | `localStorage` |
 | Build | Vite 8 / bun |
+| Config | SvelteKit options live inline in `vite.config.ts` (no `svelte.config.js`) |
 | Deploy | `adapter-static` |
 
 ## Features
@@ -32,6 +33,34 @@ Drag tetromino-style pieces onto an 8×8 grid. Fill rows or columns to clear the
 - **Game over overlay** — round stats (lines, streak, level) + top-5 leaderboard
 - **Persistent stats** — best score, games played, best streak, total lines (localStorage)
 - **Mobile-first** — works at 375px, no horizontal scroll
+
+## Getting Started
+
+Requires [bun](https://bun.sh). Then:
+
+```bash
+bun install && bun run dev
+```
+
+Open http://localhost:5173.
+
+## How to Play
+
+1. Drag one of the three pieces from the tray onto the board.
+2. Fill a full row or column to clear it.
+3. Clear several lines at once or on consecutive turns for multipliers and streak bonuses.
+4. When none of the three pieces fit anywhere, the game ends.
+
+## Scoring
+
+| Action | Points |
+|---|---|
+| Each cell placed | +1 |
+| Each line cleared | +10 |
+| 2 lines at once | ×1.5 |
+| 3+ lines at once | ×2 |
+| Streak (consecutive clears) | +5 per streak level |
+| Perfect clear | +500 |
 
 ## Commands
 
@@ -67,6 +96,22 @@ src/
 │       └── game.svelte.ts      # Unified reactive game store (singleton)
 ├── routes/
 │   ├── +page.svelte            # Main page shell
-│   └── +page.ts                # ssr = false (client-only)
-└── app.css                     # CSS vars, global styles, keyframe animations
+│   ├── +layout.svelte          # App shell
+│   ├── +page.ts                # ssr = false, prerender = true
+│   └── layout.css              # Tailwind import, CSS vars, global styles, keyframes
 ```
+
+## Persistence
+
+All data is stored client-side in `localStorage`:
+
+| Key | Contents |
+|---|---|
+| `blockblast_highscore` | Best score |
+| `blockblast_played` | Games played |
+| `blockblast_scores_v2` | Leaderboard |
+| `blockblast_stats_v2` | Lifetime stats (best streak, total lines) |
+
+## Deployment
+
+`bun run build` produces a fully static site in `build/` via `adapter-static`, which you can host anywhere (Cloudflare Pages, GitHub Pages, Netlify, etc.).
